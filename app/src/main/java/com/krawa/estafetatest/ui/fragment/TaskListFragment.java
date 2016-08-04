@@ -141,7 +141,10 @@ public class TaskListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onResume() {
         super.onResume();
-        ((Toolbar) getActivity().findViewById(R.id.toolbar)).setTitle(R.string.task_list_title);
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.task_list_title);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_launcher));
+        toolbar.setNavigationOnClickListener(null);
     }
 
     @Override

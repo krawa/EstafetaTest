@@ -61,7 +61,15 @@ public class DetailsTaskFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        ((Toolbar) getActivity().findViewById(R.id.toolbar)).setTitle(String.valueOf(getTask().getId()));
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(String.valueOf(getTask().getId()));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_vector));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
     }
 
 }

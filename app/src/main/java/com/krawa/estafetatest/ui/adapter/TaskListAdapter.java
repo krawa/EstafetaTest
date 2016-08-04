@@ -19,6 +19,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private final SortedList<Task> mList;
     private final SimpleDateFormat formatDate;
+    private OnTaskClickListener onTaskClickListener;
 
     public TaskListAdapter() {
 
@@ -134,6 +135,10 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mList.endBatchedUpdates();
     }
 
+    public void setOnTaskClickListener(OnTaskClickListener onTaskClickListener){
+        this.onTaskClickListener = onTaskClickListener;
+    }
+
     class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView date;
@@ -151,7 +156,20 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             number = (TextView)itemView.findViewById(R.id.tvNumder);
             date = (TextView)itemView.findViewById(R.id.tvDate);
 
+            itemView.setClickable(true);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onTaskClickListener != null)
+                        onTaskClickListener.onTaskClick(mList.get(getAdapterPosition()));
+                }
+            });
+
         }
+    }
+
+    public interface OnTaskClickListener{
+        void onTaskClick(Task task);
     }
 
 }

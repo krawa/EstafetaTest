@@ -24,7 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TaskListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class TaskListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, TaskListAdapter.OnTaskClickListener {
 
     public static final String TAG = "TaskListFragment";
     private RecyclerView list;
@@ -61,6 +61,7 @@ public class TaskListFragment extends Fragment implements SwipeRefreshLayout.OnR
         refreshLayout.setColorSchemeResources(R.color.colorAccent);
 
         listAdapter = new TaskListAdapter();
+        listAdapter.setOnTaskClickListener(this);
         list.setAdapter(listAdapter);
     }
 
@@ -136,4 +137,11 @@ public class TaskListFragment extends Fragment implements SwipeRefreshLayout.OnR
         getTaskList();
     }
 
+    @Override
+    public void onTaskClick(Task task) {
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, DetailsTaskFragment.newInstance(task), DetailsTaskFragment.TAG)
+                .addToBackStack(null)
+                .commit();
+    }
 }

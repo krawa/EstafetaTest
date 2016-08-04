@@ -7,4 +7,16 @@
     <string name="auth_error">Ошибка авторизации. Неверный логин или пароль</string>
     <string name="server_error">Ошибка сервера. Попробуйте позже</string>
     <string name="error">Ошибка</string>
+    <string name="vin">VIN</string>
+    <string name="brand">Brand</string>
+    <string name="model">Model</string>
+    <string name="model_code">Model code</string>
+    <string name="driver">Driver</string>
+    <string name="survey_point">Survey point</string>
+    <string name="carrier">Carrier</string>
+    <string name="number">Number</string>
+    <string name="planned_start_date">Planned start date</string>
+    <string name="planned_end_date">Planned end date</string>
+    <string name="actual_start_date">Actual start date</string>
+    <string name="actual_end_date">Actual end date</string>
 </resources>

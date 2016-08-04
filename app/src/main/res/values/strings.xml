@@ -2,4 +2,9 @@
     <string name="app_name">EstafetaTest</string>
     <string name="action_settings">Settings</string>
     <string name="empty_list">Список пуст...</string>
+    <string name="stale_warning">Нет подключения к интернету. Данные могут быть устаревшими.</string>
+    <string name="error_connect">Нет подключения к интернету</string>
+    <string name="auth_error">Ошибка авторизации. Неверный логин или пароль</string>
+    <string name="server_error">Ошибка сервера. Попробуйте позже</string>
+    <string name="error">Ошибка</string>
 </resources>

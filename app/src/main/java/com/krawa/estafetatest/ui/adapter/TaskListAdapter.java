@@ -12,7 +12,6 @@ import com.krawa.estafetatest.R;
 import com.krawa.estafetatest.model.Task;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,7 +22,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public TaskListAdapter() {
 
-        formatDate = new SimpleDateFormat("dd.MM.yy", Locale.getDefault());
+        formatDate = new SimpleDateFormat("dd.MM.yy HH:mm", Locale.getDefault());
 
         mList = new SortedList<>(Task.class, new SortedListAdapterCallback<Task>(this) {
             @Override
@@ -36,17 +35,44 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             @Override
             public boolean areContentsTheSame(Task oldItem, Task newItem) {
                 // return whether the items' visual representations are the same or not.
-                //TODO check NULL
-                return oldItem.getVin().equals(newItem.getVin())
-                        && oldItem.getDriver().equals(newItem.getDriver())
-                        && oldItem.getModel().equals(newItem.getModel())
-                        && oldItem.getBrand().equals(newItem.getBrand())
-                        && oldItem.getActualStartDate().equals(newItem.getActualStartDate());
+                if (oldItem == null || newItem == null) return false;
+
+                if (oldItem.getVin() == null) {
+                    if (newItem.getVin() != null) return false;
+                } else {
+                    if (!oldItem.getVin().equals(newItem.getVin())) return false;
+                }
+
+                if (oldItem.getDriver() == null) {
+                    if (newItem.getDriver() != null) return false;
+                } else {
+                    if (!oldItem.getDriver().equals(newItem.getDriver())) return false;
+                }
+
+                if (oldItem.getModel() == null) {
+                    if (newItem.getModel() != null) return false;
+                } else {
+                    if (!oldItem.getModel().equals(newItem.getModel())) return false;
+                }
+
+                if (oldItem.getBrand() == null) {
+                    if (newItem.getBrand() != null) return false;
+                } else {
+                    if (!oldItem.getBrand().equals(newItem.getBrand())) return false;
+                }
+
+                if (oldItem.getActualStartDate() == null) {
+                    if (newItem.getActualStartDate() != null) return false;
+                } else {
+                    if (!oldItem.getActualStartDate().equals(newItem.getActualStartDate())) return false;
+                }
+
+                return true;
             }
 
             @Override
             public boolean areItemsTheSame(Task item1, Task item2) {
-                return item1.getId() == item2.getId();
+                return !(item1 == null || item2 == null) && item1.getId() == item2.getId();
             }
         });
 

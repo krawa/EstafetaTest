@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,6 @@ public class DetailsTaskFragment extends Fragment{
 
         setupList();
 
-        bindTask((Task) getArguments().getSerializable(EXTRA_TASK));
-
         return v;
     }
 
@@ -51,10 +50,18 @@ public class DetailsTaskFragment extends Fragment{
 
         listAdapter = new DetailsTaskAdapter(getActivity().getApplicationContext());
         list.setAdapter(listAdapter);
+
+        listAdapter.setTask(getTask());
     }
 
-    private void bindTask(Task task) {
-        listAdapter.setTask(task);
+    private Task getTask() {
+        return (Task) getArguments().getSerializable(EXTRA_TASK);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((Toolbar) getActivity().findViewById(R.id.toolbar)).setTitle(String.valueOf(getTask().getId()));
     }
 
 }

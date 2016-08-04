@@ -19,4 +19,5 @@
     <string name="planned_end_date">Planned end date</string>
     <string name="actual_start_date">Actual start date</string>
     <string name="actual_end_date">Actual end date</string>
+    <string name="task_list_title">Task List</string>
 </resources>

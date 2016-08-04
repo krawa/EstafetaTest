@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,6 +136,12 @@ public class TaskListFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void onRefresh() {
         emptyText.setVisibility(View.GONE);
         getTaskList();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((Toolbar) getActivity().findViewById(R.id.toolbar)).setTitle(R.string.task_list_title);
     }
 
     @Override

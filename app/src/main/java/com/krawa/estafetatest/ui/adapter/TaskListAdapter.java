@@ -76,9 +76,35 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void addAll(List<Task> items) {
         mList.beginBatchedUpdates();
-        for(Task item : items){
-            mList.add(item);
+
+        //Удаляем элементы которых больше нет
+        for (int i = mList.size() - 1; i >= 0; i--) {
+            boolean contain = false;
+            for(Task item : items){
+                if(item.getId() == mList.get(i).getId()){
+                    contain = true;
+                    break;
+                }
+            }
+            if(!contain) mList.removeItemAt(i);
         }
+
+        //Дабавляем или обновляем элементы
+        for(Task newItem : items){
+            int pos = SortedList.INVALID_POSITION;
+            for(int i = 0; i < mList.size(); i++){
+                if(newItem.getId() == mList.get(i).getId()){
+                    pos = i;
+                    break;
+                }
+            }
+            if(pos != SortedList.INVALID_POSITION){
+                mList.updateItemAt(pos, newItem);
+            }else{
+                mList.add(newItem);
+            }
+        }
+
         mList.endBatchedUpdates();
     }
 

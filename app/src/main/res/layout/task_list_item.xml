@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvVin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DEMOVIN11111"/>
+
+        <TextView
+            android:id="@+id/tvCar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ford Focus"/>
+
+        <TextView
+            android:id="@+id/tvDriver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ivanov Ivan"
+            android:singleLine="true"/>
+
+        <TextView
+            android:id="@+id/tvNumder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SV-1231"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp">
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="14.02.2016 12:36"/>
+
+    </LinearLayout>
+
+</LinearLayout>

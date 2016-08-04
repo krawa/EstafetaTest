@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".ui.fragment.TaskListFragment"
+tools:showIn="@layout/activity_main">
+
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:scrollbars="vertical"
+        android:clipToPadding="false" />
+
+</android.support.v4.widget.SwipeRefreshLayout>
+
+<TextView
+    android:id="@+id/tvEmptyText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:layout_gravity="center_horizontal"
+    android:paddingLeft="32dp"
+    android:paddingRight="32dp"
+    android:gravity="center"
+    android:text="@string/empty_list"
+    android:fontFamily="sans-serif-light"
+    android:visibility="gone"/>
+
+</RelativeLayout>

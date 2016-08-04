@@ -17,6 +17,7 @@ import com.krawa.estafetatest.R;
 import com.krawa.estafetatest.model.Task;
 import com.krawa.estafetatest.network.RestClient;
 import com.krawa.estafetatest.ui.adapter.TaskListAdapter;
+import com.krawa.estafetatest.ui.custom.DividerItemDecoration;
 
 import java.io.IOException;
 import java.util.List;
@@ -57,6 +58,8 @@ public class TaskListFragment extends Fragment implements SwipeRefreshLayout.OnR
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         list.setLayoutManager(layoutManager);
+
+        list.addItemDecoration(new DividerItemDecoration(getActivity()));
 
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setColorSchemeResources(R.color.colorAccent);

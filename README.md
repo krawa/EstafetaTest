@@ -5,14 +5,14 @@
 
 ##ТЗ
 
-1) Url тестового сервера: http://amt2.estafeta.org/
-2) Url получения списка задач:  http://amt2.estafeta.org/api/mobilesurveytasks/gettestsurveytasks 
-3) На сервере используется  Basic Authentication.
+1. Url тестового сервера: http://amt2.estafeta.org/
+2. Url получения списка задач:  http://amt2.estafeta.org/api/mobilesurveytasks/gettestsurveytasks 
+3. На сервере используется  Basic Authentication.
 Логин и пароль надо передавать в формате: <Логин>@<Ид Компании>:<Пароль>.
 Логин: admin,
 Пароль: 1,
 Ид компании: 9F346DDB-8FF8-4F42-8221-6E03D6491756.
-4) Сервер отдает данные в JSON формате.
+4. Сервер отдает данные в JSON формате.
 
 ###Задание:
 1. проходить  аутентификацию на сервере,

@@ -1,9 +1,9 @@
 package com.krawa.estafetatest.ui.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,28 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.krawa.estafetatest.R;
 import com.krawa.estafetatest.model.Task;
-import com.krawa.estafetatest.network.RestClient;
 import com.krawa.estafetatest.ui.adapter.TaskListAdapter;
 import com.krawa.estafetatest.ui.custom.DividerItemDecoration;
 
-import java.io.IOException;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class TaskListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, TaskListAdapter.OnTaskClickListener {
+public class TaskListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,
+        TaskListAdapter.OnTaskClickListener {
 
     public static final String TAG = "TaskListFragment";
     private RecyclerView list;
     private SwipeRefreshLayout refreshLayout;
     private TextView emptyText;
     private TaskListAdapter listAdapter;
+    private TaskListFragmentInterface callback;
 
     public TaskListFragment() {}
 
@@ -49,7 +44,7 @@ public class TaskListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         showListProgress(true);
 
-        getTaskList();
+        if(callback != null) callback.getTaskList();
 
         return v;
     }
@@ -69,43 +64,12 @@ public class TaskListFragment extends Fragment implements SwipeRefreshLayout.OnR
         list.setAdapter(listAdapter);
     }
 
-    private void getTaskList() {
-        RestClient.get().getTaskList().enqueue(new Callback<List<Task>>() {
-            @Override
-            public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
-                if (getActivity() == null) return;
-                showListProgress(false);
-                if (response.isSuccessful()) {
-                    updateList(response.body());
-                    if(response.headers().get("Warning") != null){
-                        Toast.makeText(getActivity().getApplicationContext(), R.string.stale_warning, Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    handleServerError(response);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Task>> call, Throwable t) {
-                if (getActivity() == null) return;
-                showListProgress(false);
-                String error;
-                if (t instanceof IOException) {
-                    error = getString(R.string.error_connect);
-                } else {
-                    error = t.getMessage();
-                }
-                showErrorMessage(error);
-            }
-        });
-    }
-
-    private void updateList(List<Task> items) {
+    public void updateList(List<Task> items) {
         listAdapter.addAll(items);
-        emptyText.setVisibility(listAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        setEmptyText(null);
     }
 
-    private void showListProgress(final boolean show){
+    public void showListProgress(final boolean show){
         refreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -114,31 +78,10 @@ public class TaskListFragment extends Fragment implements SwipeRefreshLayout.OnR
         });
     }
 
-    private void handleServerError(Response<List<Task>> response) {
-        String error;
-        if (response.code() == 401) {
-            error = getString(R.string.auth_error);
-        }else{
-            error = getString(R.string.server_error);
-        }
-        showErrorMessage(error);
-    }
-
-    private void showErrorMessage(String msg) {
-        emptyText.setVisibility(listAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
-        emptyText.setText(getString(R.string.error)+". "+msg);
-
-        new AlertDialog.Builder(getActivity())
-                .setTitle(R.string.error)
-                .setMessage(msg)
-                .setPositiveButton(android.R.string.ok, null)
-                .show();
-    }
-
     @Override
     public void onRefresh() {
         emptyText.setVisibility(View.GONE);
-        getTaskList();
+        if(callback != null) callback.getTaskList();
     }
 
     @Override
@@ -156,5 +99,26 @@ public class TaskListFragment extends Fragment implements SwipeRefreshLayout.OnR
                 .replace(R.id.container, DetailsTaskFragment.newInstance(task), DetailsTaskFragment.TAG)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        callback = (TaskListFragmentInterface) activity;
+    }
+
+    @Override
+    public void onDetach() {
+        callback = null;
+        super.onDetach();
+    }
+
+    public void setEmptyText(String msg) {
+        emptyText.setVisibility(listAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        emptyText.setText(msg != null ? msg : getString(R.string.empty_list));
+    }
+
+    public interface TaskListFragmentInterface{
+        void getTaskList();
     }
 }

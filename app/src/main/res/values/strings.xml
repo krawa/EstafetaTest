@@ -7,6 +7,7 @@
     <string name="auth_error">Ошибка авторизации. Неверный логин или пароль</string>
     <string name="server_error">Ошибка сервера. Попробуйте позже</string>
     <string name="error">Ошибка</string>
+    <string name="error_and_msg">Ошибка. %s</string>
     <string name="vin">VIN</string>
     <string name="brand">Brand</string>
     <string name="model">Model</string>
